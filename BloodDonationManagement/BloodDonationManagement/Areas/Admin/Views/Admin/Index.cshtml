@@ -1,0 +1,29 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model BloodDonation.DTO.Admin.AdminLoginDetails
+@{
+    ViewData["Title"] = "Admin Login";
+    Layout = "_AdminNavbar";
+}
+
+<h1 class="text-danger">Admin Login</h1>
+<hr />
+
+<form asp-action="AdminLogin" method="post" asp-controller="Admin">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <label asp-for="adminName" class="control-label fw-bold text-danger"></label>
+                <input asp-for="adminName" class="form-control" />
+                <span asp-validation-for="adminName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-12">
+                <label asp-for="adminPassword" class="control-label fw-bold text-danger"></label>
+                <input asp-for="adminPassword" class="form-control" />
+                <span asp-validation-for="adminPassword" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary justify-content-center mt-2">Login</button>
+    </div>
+</form>

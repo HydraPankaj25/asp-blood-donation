@@ -1,0 +1,139 @@
+﻿@model BloodDonation.DTO.Donor.DonorRegistrationDetails;
+@{
+    ViewData["Title"] = "Register";
+
+    var bloodGrp = new List<SelectListItem>()
+    {
+        new SelectListItem
+        {
+            Text="A+",
+            Value="A+"
+        },
+        new SelectListItem
+        {
+            Text="A-",
+            Value="A-"
+        },
+        new SelectListItem
+        {
+            Text="B+",
+            Value="B+"
+        },
+        new SelectListItem
+        {
+            Text="B-",
+            Value="B-"
+        },
+        new SelectListItem
+        {
+            Text="AB+",
+            Value="AB+"
+        },
+        new SelectListItem
+        {
+            Text="AB-",
+            Value="AB-"
+        },
+        new SelectListItem
+        {
+            Text="O+",
+            Value="O+"
+        },
+        new SelectListItem
+        {
+            Text="O-",
+            Value="O-"
+        }
+    };
+}
+
+<!--resistration part start here-->
+<div class="reg">
+    <div class="mid">
+        <h3>REGISTERATION FORM</h3>
+        <form asp-action="Register" asp-controller="Home" method="post">
+
+            @if (Model != null)
+            {
+                <input type="number" asp-for="Id" hidden />
+                <input type="text" asp-for="DonorCustomeId" hidden />
+            }
+
+
+            <label asp-for="DonorName">NAME</label>
+            <input type="text" placeholder="NAME" asp-for="DonorName" id="name">
+            <span asp-validation-for="DonorName" class="text-danger"></span>
+
+            <div class="adress">
+                <fieldset>
+                    <legend>PERMANENT ADDRESS</legend>
+
+                    <label asp-for="DonorCity">STATE:</label>
+                    <select asp-for="DonorCity" id="userCity" asp-items="@TempData["states"] as List<SelectListItem>"></select>
+                    <span class="text-danger" asp-validation-for="DonorCity"></span>
+
+
+                    <label asp-for="DonorAddress">ADDRESS:</label>
+                    <input type="text" placeholder="ADDRESS" asp-for="DonorAddress" id="addres">
+                    <span class="text-danger" asp-validation-for="DonorCity"></span>
+
+                </fieldset>
+
+                <label asp-for="DonorEmail">EMAIL ADDRESS</label>
+                <input type="email" placeholder="EMAIL" asp-for="DonorEmail" id="email">
+                <span class="text-danger" asp-validation-for="DonorEmail"></span>
+
+
+                <label asp-for="DonorMobile">MOBILE NUMBER </label>
+                <input type="tel" placeholder="MOBILE NUMBER" asp-for="DonorMobile" id="phone">
+                <span class="text-danger" asp-validation-for="DonorMobile"></span>
+
+
+                <label asp-for="DonorDob">
+                    Date of Birth:
+                </label>
+                <div class="date">
+                    <input type="date" id="date" asp-for="DonorDob" />
+                    <span class="text-danger" asp-validation-for="DonorDob"></span>
+                </div>
+
+                <div class="gender">
+                    <div class="col-md-12">
+                        <label asp-for="DonorGender">MALE</label>
+                        <input asp-for="DonorGender" id="male" type="radio" value="Male">
+                        <label asp-for="DonorGender">FEMALE</label>
+                        <input asp-for="DonorGender" id="female" type="radio" value="Female">
+                    </div>
+                    <p>
+                        Phone numbers of donors will be kept confidential.
+                    </p>
+                </div>
+
+                <label asp-for="DonorPassword">PASSWORD</label>
+                <input type="password" placeholder="PASSWORD" asp-for="DonorPassword" id="password">
+                <span class="text-danger" asp-validation-for="DonorPassword"></span>
+
+
+                <label asp-for="DonorCnfPassword">CONFIRM PASSWORD:</label>
+                <input type="password" placeholder="CONFIRM:" asp-for="DonorCnfPassword" onblur="checkpass()" id="password1">
+                <span class="text-danger" asp-validation-for="DonorCnfPassword"></span>
+
+                <label asp-for="DonorBloodGrp">BLOOD GROUP</label>
+                <div class="blood-group">
+                    <select asp-for="DonorBloodGrp" id="group" asp-items="bloodGrp"></select>
+                    <span class="text-warning" asp-validation-for="DonorBloodGrp"></span>
+                </div>
+
+                <input type="submit" value="SUBMIT">
+                <a href="#">Contact us if you forget your password</a>
+            </div>
+
+            <input type="checkbox" class="form-check" asp-for="DonorAggreement" />
+            <span>Knowing the details about the patient, be sure to give blood. </span>
+        </form>
+    </div>
+</div>
+<!--resistration part end here-->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,99 @@
+﻿@model BloodDonation.DTO.Doctor.DoctorRegistrationDetails
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "DoctorRegistration";
+    Layout = "_AdminNavbar";
+
+    var doctorFloor = new List<SelectListItem>
+    {
+        new SelectListItem
+        {
+            Text="1",
+            Value="1"
+        },
+        new SelectListItem
+        {
+            Text="2",
+            Value="2"
+        },
+        new SelectListItem
+        {
+            Text="3",
+            Value="3"
+        }
+    };
+}
+
+<h1 class="text-danger">Add New Doctor</h1>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="DoctorRegistration" method="post" asp-controller="Admin">
+            <div class="container">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="HId" class="form-control" hidden />
+                <div class="row">
+                    <div class="col-md-4">
+                        <label asp-for="DoctorName" class="control-label fw-bold text-danger"></label>
+                        <input asp-for="DoctorName" class="form-control" />
+                        <span asp-validation-for="DoctorName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DoctorEmail" class="control-label fw-bold text-danger"></label>
+                        <input asp-for="DoctorEmail" class="form-control" />
+                        <span asp-validation-for="DoctorEmail" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DoctorAddress" class="control-label fw-bold text-danger"></label>
+                        <input asp-for="DoctorAddress" class="form-control" />
+                        <span asp-validation-for="DoctorAddress" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label asp-for="DoctorPassword" class="control-label fw-bold text-danger"></label>
+                        <input asp-for="DoctorPassword" class="form-control" />
+                        <span asp-validation-for="DoctorPassword" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DoctorSpeciality" class="control-label fw-bold text-danger"></label>
+                        <input asp-for="DoctorSpeciality" class="form-control" />
+                        <span asp-validation-for="DoctorSpeciality" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DoctorTiming" class="control-label fw-bold text-danger"></label>
+                        <input asp-for="DoctorTiming" class="form-control" />
+                        <span asp-validation-for="DoctorTiming" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label asp-for="DoctorFloor" class="control-label fw-bold text-danger"></label>
+                        <select class="form-select" asp-for="DoctorFloor" asp-items="doctorFloor"></select>
+                        <span asp-validation-for="DoctorFloor" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DoctorDegree" class="control-label fw-bold text-danger"></label>
+                        <input asp-for="DoctorDegree" class="form-control" />
+                        <span asp-validation-for="DoctorDegree" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label asp-for="DoctorDOJ" class="control-label fw-bold text-danger"></label>
+                        <input asp-for="DoctorDOJ" class="form-control" />
+                        <span asp-validation-for="DoctorDOJ" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group mt-2">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section AdminScripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

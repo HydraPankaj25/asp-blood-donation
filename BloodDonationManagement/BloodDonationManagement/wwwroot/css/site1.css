@@ -1,0 +1,27 @@
+﻿.mainHeaderImage {
+    width: 80%;
+    display: block;
+    margin: auto;
+    height: 70px;
+}
+
+.navigation ul li a:hover {
+    color: white !important;
+    background-color: red;
+    font-weight: bolder;
+    border-radius: 10px;
+}
+
+.organisationMember h1 {
+    color: #fff;
+    background-color: red;
+    padding: 20px;
+    text-align: center;
+}
+
+
+
+.organisationMember p {
+    margin-bottom: 0px;
+    font-weight: 500;
+}
