@@ -26,3 +26,4 @@ D:\BloodDonationManagement\BloodDonation.DAL\obj\Debug\net8.0\refint\BloodDonati
 D:\BloodDonationManagement\BloodDonation.DAL\obj\Debug\net8.0\BloodDonation.DAL.pdb
 D:\BloodDonationManagement\BloodDonation.DAL\obj\Debug\net8.0\BloodDonation.DAL.genruntimeconfig.cache
 D:\BloodDonationManagement\BloodDonation.DAL\obj\Debug\net8.0\ref\BloodDonation.DAL.dll
+D:\CORE\Project\BloodDonationManagement\BloodDonation.DAL\obj\Debug\net8.0\BloodDonation.DAL.sourcelink.json

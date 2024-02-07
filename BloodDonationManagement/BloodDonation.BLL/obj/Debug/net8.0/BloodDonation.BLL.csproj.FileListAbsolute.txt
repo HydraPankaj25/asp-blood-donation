@@ -32,3 +32,4 @@ D:\BloodDonationManagement\BloodDonation.BLL\obj\Debug\net8.0\BloodDonation.BLL.
 D:\BloodDonationManagement\BloodDonation.BLL\obj\Debug\net8.0\refint\BloodDonation.BLL.dll
 D:\BloodDonationManagement\BloodDonation.BLL\obj\Debug\net8.0\BloodDonation.BLL.pdb
 D:\BloodDonationManagement\BloodDonation.BLL\obj\Debug\net8.0\ref\BloodDonation.BLL.dll
+D:\CORE\Project\BloodDonationManagement\BloodDonation.BLL\obj\Debug\net8.0\BloodDonation.BLL.sourcelink.json

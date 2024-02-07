@@ -25,6 +25,11 @@ builder.Services.AddNotyf(config =>
 
 
 
+//configuring the httpcontext
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+
 
 var app = builder.Build();
 

@@ -196,7 +196,7 @@ namespace BloodDonation.BLL.Services
             var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier, entity.DonorEmail),
-                    new Claim(ClaimTypes.Role, "Admin"),
+                    new Claim(ClaimTypes.Role, "Donor"),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 };
 
@@ -238,6 +238,18 @@ namespace BloodDonation.BLL.Services
                 return true;
 
             return false;   
+        }
+
+
+        //GETTING THE DONOR DATA BY EMAIL
+        public DonorDetails getDonorDataByEmail(string email)
+        {
+            var res = donor.GetDataByEmail(email).Result;
+
+            if (res != null)
+                return mapper.Map<DonorDetails>(res);
+
+            return new DonorDetails();
         }
     }
 }

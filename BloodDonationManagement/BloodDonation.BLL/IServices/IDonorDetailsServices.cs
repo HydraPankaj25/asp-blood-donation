@@ -30,5 +30,7 @@ namespace BloodDonation.BLL.IServices
         List<State> GetAllStates();
 
         bool checkDonorExistence(string email);
+
+        DonorDetails getDonorDataByEmail(string email);
     }
 }

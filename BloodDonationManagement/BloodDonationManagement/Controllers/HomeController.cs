@@ -1,5 +1,6 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
 using BloodDonation.DTO;
+using BloodDonation.DTO.Doner;
 using BloodDonation.DTO.Donor;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace BloodDonationManagement.Controllers
@@ -43,6 +45,11 @@ namespace BloodDonationManagement.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
 
 
         //Rendering the registration page
@@ -69,6 +76,7 @@ namespace BloodDonationManagement.Controllers
 
         //Getting the data 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(DonorRegistrationDetails obj)
         {
             if (ModelState.IsValid)
@@ -114,21 +122,97 @@ namespace BloodDonationManagement.Controllers
 
 
 
-
-        public IActionResult Login()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(DonorLoginDetails obj)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                SetCookie("UserName", obj.DonorEmail, null);
+                var jsonData = JsonConvert.SerializeObject(obj);
+
+                StringContent sc = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                var res = client.PostAsync("http://localhost:5062/Api/DonorLogin", sc).Result;
+
+                var message = res.Content.ReadAsStringAsync().Result;
+
+                if (res.IsSuccessStatusCode)
+                {
+                    SetCookie("UserToken", message, null);
+                    notyf.Success("Donor Logged In Successfully", 5);
+                    return RedirectToAction("Dashboard");
+                }
+
+                notyf.Error(message, 5);
+                return View();
+            }
+
+            return View(obj);
         }
+
+
 
         public IActionResult Dashboard()
         {
-            return View();
+            if (Request.Cookies["UserToken"] != null)
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Request.Cookies["UserToken"]);
+
+                var res = client.GetAsync($"http://localhost:5062/Api/GetDonorDataByEmail?email={Request.Cookies["UserName"]}").Result;
+
+                var message = res.Content.ReadAsStringAsync().Result;
+
+                if(res.IsSuccessStatusCode)
+                {
+                    var data = JsonConvert.DeserializeObject<DonorDetails>(message);
+                    return View(data);
+                }
+                else if(res.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+                {
+                    RedirectToAction("Logout");
+                    notyf.Error("Sorry You Are Unauthorized !", 5);
+                    return RedirectToAction("Login");
+                }
+            }
+            return RedirectToAction("Login");
         }
 
+
+
+
+
+        //default error 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+
+
+        //logout the donor
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("UserToken");
+            Response.Cookies.Delete("UserName");
+
+            return RedirectToAction("Index");
+        }
+
+
+
+        //setting the cookie time function
+        private void SetCookie(string key, string value, int? expireTime)
+        {
+            CookieOptions option = new CookieOptions();
+
+            if (expireTime.HasValue)
+                option.Expires = DateTime.Now.AddDays(expireTime.Value);
+            else
+                option.Expires = DateTime.Now.AddMinutes(15);
+
+            Response.Cookies.Append(key, value, option);
         }
     }
 }

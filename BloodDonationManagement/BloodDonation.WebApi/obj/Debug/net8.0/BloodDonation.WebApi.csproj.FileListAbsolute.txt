@@ -306,3 +306,4 @@ D:\BloodDonationManagement\BloodDonation.WebApi\bin\Debug\net8.0\Newtonsoft.Json
 D:\CORE\Project\BloodDonationManagement\BloodDonation.WebApi\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\CORE\Project\BloodDonationManagement\BloodDonation.WebApi\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\CORE\Project\BloodDonationManagement\BloodDonation.WebApi\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\CORE\Project\BloodDonationManagement\BloodDonation.WebApi\obj\Debug\net8.0\BloodDonation.WebApi.sourcelink.json

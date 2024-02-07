@@ -772,3 +772,4 @@ D:\BloodDonationManagement\BloodDonationManagement\bin\Debug\net8.0\Microsoft.As
 D:\BloodDonationManagement\BloodDonationManagement\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
 D:\CORE\Project\BloodDonationManagement\BloodDonationManagement\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\CORE\Project\BloodDonationManagement\BloodDonationManagement\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+D:\CORE\Project\BloodDonationManagement\BloodDonationManagement\obj\Debug\net8.0\BloodDonationManagement.sourcelink.json

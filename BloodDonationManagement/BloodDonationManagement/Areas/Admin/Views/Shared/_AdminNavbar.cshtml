@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -31,23 +34,27 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between navigation">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item m-2">
-                            <a class="nav-link text-dark fw-bold" asp-controller="Admin" asp-action="DoctorRegistration">Register New Doctor</a>
-                        </li>
-                        <li class="nav-item dropdown mt-2">
-                            <a class="nav-link dropdown-toggle text-dark fw-bold" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Get List
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-action="DonorList" asp-controller="Admin">User</a></li>
-                                <li><a class="dropdown-item" asp-action="DoctorList" asp-controller="Admin">Doctor</a></li>
-                                <li><a class="dropdown-item" asp-action="GroupMemberList" asp-controller="Admin">Group Member</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    
-                    @if(ViewBag.AdminName == null)
+
+                    @if (@HttpContextAccessor?.HttpContext?.Request.Cookies["AdminToken"] != null)
+                    {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item m-2">
+                                <a class="nav-link text-dark fw-bold" asp-controller="Admin" asp-action="DoctorRegistration">Register New Doctor</a>
+                            </li>
+                            <li class="nav-item dropdown mt-2">
+                                <a class="nav-link dropdown-toggle text-dark fw-bold" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Get List
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-action="DonorList" asp-controller="Admin">User</a></li>
+                                    <li><a class="dropdown-item" asp-action="DoctorList" asp-controller="Admin">Doctor</a></li>
+                                    <li><a class="dropdown-item" asp-action="GroupMemberList" asp-controller="Admin">Group Member</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+
+                    @if (@HttpContextAccessor?.HttpContext?.Request.Cookies["AdminToken"] == null)
                     {
                         <ul class="navbar-nav flex-grow">
                             <li class="nav-item dropdown mt-2">
@@ -62,7 +69,7 @@
                             </li>
                             <li class="nav-item dropdown mt-2">
                                 <a class="nav-link dropdown-toggle text-dark fw-bold" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    AdminName
+                                    @HttpContextAccessor?.HttpContext?.Request.Cookies["AdminName"]
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" asp-action="Logout" asp-controller="Admin">Logout</a></li>

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -41,24 +44,47 @@
                         <li class="nav-item m-2">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Organisation">AFFILIATE ORGANIZATION</a>
                         </li>
-                        <li class="nav-item m-2">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Dashboard">DASHBOARD</a>
-                        </li>
+                        @if (@HttpContextAccessor?.HttpContext?.Request.Cookies["UserToken"] != null)
+                        {
+                            <li class="nav-item m-2">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Dashboard">DASHBOARD</a>
+                            </li>
+                        }
                     </ul>
-                    <ul class="navbar-nav flex-grow">
-                        <li class="nav-item m-2">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
-                        </li>
-                        <li class="nav-item dropdown mt-2">
-                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Login
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-action="Login" asp-controller="Home">User</a></li>
-                                <li><a class="dropdown-item" asp-action="Login" asp-controller="Home">Doctor</a></li>
-                            </ul>
-                        </li>
-                    </ul>
+                    @if (@HttpContextAccessor?.HttpContext?.Request.Cookies["UserToken"] == null)
+                    {
+                        <ul class="navbar-nav flex-grow">
+                            <li class="nav-item m-2">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">Register</a>
+                            </li>
+
+                            <li class="nav-item dropdown mt-2">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Login
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-action="Login" asp-controller="Home">User</a></li>
+                                    <li><a class="dropdown-item" asp-action="Login" asp-controller="Home">Doctor</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav flex-grow">
+                            <li class="nav-item dropdown mt-2">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpb61YIcJ6oEkVs-EhoPDQqv_f6Zkwv9Lgtw&usqp=CAU" class="rounded-circle border border-1" style="height:45px;width:45px;" alt="sorry!" />
+                            </li>
+                            <li class="nav-item dropdown mt-2">
+                                <a class="nav-link dropdown-toggle text-dark fw-bold" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @HttpContextAccessor?.HttpContext?.Request.Cookies["UserName"]
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-action="Logout" asp-controller="Admin">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
                 </div>
             </div>
         </nav>
@@ -90,11 +116,6 @@
         </div>
     </div>
     <!--footer2 part end here-->
-
-
-
-
-
     @* All scripts file links are here *@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

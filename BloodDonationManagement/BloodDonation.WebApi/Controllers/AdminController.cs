@@ -84,7 +84,7 @@ namespace BloodDonation.WebApi.Controllers
 
             var token = tokenGeneration.GenerateJSONWebToken(config, authClaims);
 
-            return Ok(new {token=token,adminName=user.UserName});
+            return Ok(token);
         }
 
 
@@ -94,7 +94,7 @@ namespace BloodDonation.WebApi.Controllers
         //ADDING THE ROLES TO THE TABLE
 
         [HttpPost]
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("Api/AddingRoles")]
         public IActionResult addingRole([FromBody]string roleName)
         {
